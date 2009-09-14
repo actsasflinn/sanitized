@@ -1,0 +1,14 @@
+= Sanitized
+
+Sanitized is a plugin for ActiveRecord to remove HTML from attributes.  It uses the Hpricot based Sanitize gem which provides fast robust sanitization options.
+
+== Examples
+
+  class Message < ActiveRecord::Base
+    sanitize :author, :email # clean all HTML
+    sanitize :url, :add_attributes => {'a' => {'rel' => 'nofollow'}}
+    sanitize :body, :elements => ['a', 'span', 'b', 'i', 's', 'pre', 'code'],
+                    :attributes => {'a' => ['href', 'title'], 'span' => ['class']},
+                    :protocols => {'a' => {'href' => ['http', 'https', 'mailto']}}
+                    :add_attributes => {'a' => {'rel' => 'nofollow'}}
+  end
